@@ -2,3 +2,7 @@ modules = ["nodejs-24"]
 [[ports]]
 localPort = 8080
 externalPort = 80
+
+[deployment]
+deploymentTarget = "autoscale"
+run = ["node", "server.js"]
