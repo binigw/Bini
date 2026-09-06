@@ -1,8 +1,24 @@
-# VoltGuard API Backend
+# VoltGuard frontend and API
 
-A small Node.js/Express API for the VoltGuard Vercel dashboard. It supports motor
-registration and CRUD, telemetry ingestion, alerts, fault logs, personnel, system
-summary, analytics, and notification status routes.
+## Netlify deployment
+
+The dashboard is a plain JavaScript Vite application. Netlify should deploy the
+static frontend using the settings in `netlify.toml`:
+
+- Build command: `npm run build`
+- Publish directory: `dist`
+
+The SPA fallback in `netlify.toml` keeps direct navigation and browser refreshes
+working for frontend routes such as `/machines`, `/alerts`, and `/analytics`.
+
+`server.js` is a separate long-running Express API. Netlify does not run that
+process as a persistent server, so deploy the API separately on a server host
+or refactor its routes into Netlify Functions before attempting to host the
+backend on Netlify. Set `VITE_API_URL` in Netlify's environment variables to
+the deployed API URL.
+
+The current API uses in-memory storage; data is lost when the API process
+restarts.
 
 ## Run locally
 
