@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "VoltGuard AI"
+version = "1.0.0"
+id = "artifacts/voltguard"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25335
+
+[services.development]
+run = "pnpm --filter @workspace/voltguard run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/voltguard", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/voltguard/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25335"
+BASE_PATH = "/"
